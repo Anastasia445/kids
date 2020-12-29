@@ -1,0 +1,324 @@
+   
+  <mat-dialog-content class="mat-typography">
+    <form [formGroup]="formGroups" (submit)="onSubmitGroups()">
+      <mat-card  class="createChild"> 
+        <mat-card-header>
+          <mat-card-title class="title"><h1>Добавление ребёнка:</h1></mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+
+    <mat-divider></mat-divider>
+    <br>
+    <h2>Общая информация:</h2>
+    <table>
+    <td>
+     <mat-form-field appearance="fill">
+       <mat-label for="search-box">Фамилия</mat-label>
+       <input #lastName formControlName="lastName" matInput type="text" id="lastName" name="lastName"/>
+       <mat-hint
+         *ngIf="formGroups.get('lastName').invalid && formGroups.get('lastName').touched"
+         >Поле Фамилия не должно быть пустым</mat-hint>
+     </mat-form-field>
+     <br>
+     <mat-form-field appearance="fill">
+       <mat-label for="search-box">Отчество</mat-label>
+       <input #patronymic formControlName="patronymic" matInput type="text" id="patronymic" name="patronymic"/>
+       <mat-hint
+         *ngIf="formGroups.get('patronymic').invalid && formGroups.get('patronymic').touched"
+         >Поле Отчество не должно быть пустым</mat-hint>
+     </mat-form-field>
+     </td>
+      &nbsp;&nbsp;&nbsp;
+     <td>
+     <mat-form-field appearance="fill">
+       <mat-label for="search-box">Имя</mat-label>
+       <input #firstName formControlName="firstName" matInput type="text" id="firstName" name="firstName"/>
+       <mat-hint
+         *ngIf="formGroups.get('firstName').invalid && formGroups.get('firstName').touched"
+         >Поле Имя не должно быть пустым</mat-hint>
+     </mat-form-field>      
+     <mat-form-field class="w" appearance="fill">
+       <mat-label>Дата рождения</mat-label>
+       <input #dayOfBirth matInput formControlName="dayOfBirth" [matDatepicker]="picker" id="dayOfBirth" name="dayOfBirth">
+       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+       <mat-datepicker #picker></mat-datepicker>
+     </mat-form-field>
+     </td>
+     </table> 
+     <mat-divider></mat-divider>
+     <br>
+     <h2>Антропометрические данные:</h2>           
+     <table>
+       <td>
+       <h4>Первое полугодие:</h4>
+       <mat-form-field class="w">
+         <mat-label>Рост</mat-label>
+         <input #weightF matInput type="number" formControlName="weightF" name="weightF" />
+         <span matSuffix>&nbsp; см</span>
+       </mat-form-field> 
+       <br>
+       <mat-form-field class="w">
+         <mat-label>Вес</mat-label>
+         <input #heightF matInput type="number" formControlName="heightF" />
+         <span matSuffix>&nbsp; кг</span>
+       </mat-form-field>
+     </td>
+     &nbsp;&nbsp;&nbsp; 
+     <td>
+       <h4>Второе полугодие:</h4>
+       <mat-form-field class="w">
+         <mat-label>Рост</mat-label>
+         <input #weightS matInput type="number" formControlName="weightS" />
+         <span matSuffix>&nbsp; см</span>
+       </mat-form-field>
+       <br>
+       <mat-form-field class="w">
+         <mat-label>Вес</mat-label>
+         <input #heightS matInput type="number" formControlName="heightS" />
+         <span matSuffix>&nbsp; кг</span>
+       </mat-form-field> 
+       </td>
+     </table>
+     <mat-divider></mat-divider>
+     <br>
+     <h2>Здоровье:</h2>  
+     <table>
+       <td>
+         <mat-form-field appearance="fill">
+             <mat-label>Группа здоровья:</mat-label>
+             <mat-select #groupOfHealth matInput formControlName="groupOfHealth" name="groupOfHealth">
+               <mat-option *ngFor="let groupOfHealth of groupsHealth" [value]="groupOfHealth.value">
+                 {{groupOfHealth.value}}
+               </mat-option>
+             </mat-select>
+         </mat-form-field>
+         <br>
+         <mat-form-field appearance="fill">
+           <mat-label>Группа по физкультуре:</mat-label>
+           <mat-select  #physGroup formControlName="physGroup" name="physGroup">
+             <mat-option *ngFor="let groupType of groupsType" [value]="groupType.value">
+               {{groupType.value}}
+             </mat-option>
+           </mat-select>
+         </mat-form-field>
+         <br>
+         <mat-form-field appearance="fill">
+           <mat-label>Диетический стол:</mat-label>
+           <mat-select #diet formControlName="diet" name="diet" >
+             <mat-option  *ngFor="let groupFoodDiet of groupsFoodDiet" [value]="groupFoodDiet.value">
+               {{groupFoodDiet.value}}
+             </mat-option>
+           </mat-select>
+         </mat-form-field>
+    <!--   <br>
+       <mat-form-field class="example-full-width">
+         <mat-label>Диета:</mat-label>
+         <textarea matInput ></textarea>
+       </mat-form-field>-->
+     &nbsp;&nbsp;&nbsp;
+     <td>
+       <h4>Комментарий:</h4>
+       <mat-form-field class="example-full-width">
+         <textarea matInput #comment formControlName="comment"></textarea>
+       </mat-form-field>
+     </td>
+     </table>
+     <mat-divider></mat-divider>
+     <br>
+     <h2>Место проживания:</h2>    
+     <table>
+       <td>
+         <h4>Адрес прописки:</h4>
+         <mat-form-field class="example-full-width">
+           <mat-label>Город</mat-label>
+           <input #cityR matInput formControlName="cityR"/>
+         </mat-form-field>
+         <br>
+         <mat-form-field class="example-full-width">
+           <mat-label>Улица</mat-label>
+           <input #streetR matInput formControlName="streetR"/>
+         </mat-form-field>
+         <br>
+         <mat-form-field class="example-full-width">
+           <mat-label>Дом</mat-label>
+           <input #houseR matInput type="number"formControlName="houseR"/>
+         </mat-form-field>
+         <br>
+         <mat-form-field class="example-full-width">
+           <mat-label>Квартира</mat-label>
+           <input #flatR matInput type="number"formControlName="flatR"/>
+         </mat-form-field>
+         <br>
+         <mat-form-field class="w">
+           <mat-label>Телефон</mat-label>
+           <input #telephoneR type="tel" matInput placeholder="22-65-74" formControlName="telephoneR">
+           <mat-icon matSuffix>mode_edit</mat-icon>
+         </mat-form-field>
+       </td>
+       &nbsp;&nbsp;&nbsp;
+       <td>
+         <h4>Адрес проживания:</h4>
+         <mat-form-field class="example-full-width">
+           <mat-label>Город</mat-label>
+           <input #cityL matInput formControlName="cityL"/>
+         </mat-form-field>
+         <br>
+         <mat-form-field class="example-full-width">
+           <mat-label>Улица</mat-label>
+           <input #streetL matInput formControlName="streetL"/>
+         </mat-form-field>
+         <br>
+         <mat-form-field class="example-full-width">
+           <mat-label>Дом</mat-label>
+           <input #houseL matInput type="number"formControlName="houseL"/>
+         </mat-form-field>
+         <br>
+         <mat-form-field class="example-full-width">
+           <mat-label>Квартира</mat-label>
+           <input #flatL matInput type="number"formControlName="flatL"/>
+         </mat-form-field>
+         <br>
+         <mat-form-field class="w">
+           <mat-label>Телефон</mat-label>
+           <input #telephoneL type="tel" matInput placeholder="22-65-74" formControlName="telephoneL"/>
+           <mat-icon matSuffix>mode_edit</mat-icon>
+         </mat-form-field>
+       </td>
+     </table>
+
+  <mat-divider></mat-divider>
+  <br>
+  <h2>Сведения о матери:</h2>    
+   
+  <ng-container formArrayName="parents">
+   <div *ngFor="let _ of parents.controls; index as i">
+     <ng-container [formGroupName]="i">
+      <div *ngIf="i > 0">
+        <mat-divider></mat-divider>
+         <br>
+         <h2>Сведения об отце:</h2>    
+      </div>
+     <table>
+      <td>
+      <mat-form-field class="full-width">
+        <mat-label>Фамилия</mat-label>
+        <input *ngIf="i <= 0" #lastName matInput placeholder="Петрова" formControlName="lastName" type="text" />
+        <input *ngIf="i > 0" #lastName matInput placeholder="Петров" formControlName="lastName" type="text" />
+      </mat-form-field> 
+      <br>
+      <mat-form-field class="full-width">
+        <mat-label>Имя</mat-label>
+        <input *ngIf="i <= 0" #firstName matInput placeholder="Виктория" formControlName="firstName" type="text" >
+        <input *ngIf="i > 0" #firstName matInput placeholder="Евгений" formControlName="firstName" type="text" >
+      </mat-form-field> 
+      <br>
+      <mat-form-field  class="full-width">
+        <mat-label>Отчество</mat-label>
+        <input *ngIf="i <= 0" #patronymic matInput placeholder="Анатольевна" formControlName="patronymic" type="text" >
+        <input *ngIf="i > 0" #patronymic matInput placeholder="Анатольевич" formControlName="patronymic" type="text" >
+      </mat-form-field> 
+      <mat-form-field class="w">
+        <mat-label>Телефон</mat-label>
+        <span matPrefix>+375 &nbsp;</span>
+        <input type="tel" #telephone matInput formControlName="telephone" >
+        <mat-icon matSuffix>mode_edit</mat-icon>
+      </mat-form-field>
+    </td>
+    &nbsp;&nbsp;&nbsp;
+    <td>   
+    <mat-form-field appearance="fill">
+    <mat-label>Образование:</mat-label> 
+    <mat-select #education formControlName="education" name="education">
+      <mat-option *ngFor="let group of groupsEducation" [value]="group.value">
+        {{group.value}}
+      </mat-option>
+    </mat-select>
+      </mat-form-field> 
+      <br>
+      <mat-form-field class="full-width">
+        <mat-label>Место работы:</mat-label><!--#placeOfWork formControlName="placeOfWork"-->
+        <input #placeOfWork formControlName="placeOfWork"  matInput  >
+      </mat-form-field> 
+      <br>
+      <mat-form-field class="full-width">
+        <mat-label>Должность:</mat-label><!--#position matInput formControlName="position" -->
+        <input matInput #position formControlName="position" >
+      </mat-form-field> 
+    </td>
+     </table>
+   </ng-container>
+ </div>
+</ng-container>
+
+ <h2>Сведения о сёстрах и братьях:</h2>  
+  
+  <ng-container formArrayName="relatives">
+    <div *ngFor="let _ of relatives.controls; index as i">
+      <ng-container [formGroupName]="i">
+        <br>
+        <table>
+          <td>
+          <mat-form-field appearance="fill">
+            <mat-label>Родство:</mat-label>
+            <mat-select #placeOfWork matInput formControlName="placeOfWork" name="placeOfWork">
+            <mat-option *ngFor="let groups of groupsSiblings" [value]="groups.value">
+              {{groups.value}}
+            </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <br>
+          <mat-form-field class="full-width">
+            <mat-label>Место учёбы(работы):</mat-label>
+            <input #education matInput formControlName="education" type="text">
+          </mat-form-field> 
+          </td>
+          &nbsp;&nbsp;&nbsp; 
+          <td> 
+          <mat-form-field class="full-width">
+            <mat-label>Фамилия</mat-label>
+            <input #firstName matInput formControlName="firstName" type="text">
+          </mat-form-field> 
+          <br>
+          <mat-form-field class="full-width">
+            <mat-label>Имя</mat-label>
+            <input #lastName matInput formControlName="lastName"  type="text">
+          </mat-form-field> 
+          <br>
+          <mat-form-field class="full-width">
+            <mat-label>Отчество</mat-label>
+            <input #patronymic matInput formControlName="patronymic" type="text">
+          </mat-form-field> 
+          </td>
+        </table>
+        <button (click)="removeSaB(i)" class="del" mat-raised-button color="primary" type="button">
+          Удалить
+        </button>  
+        <mat-divider></mat-divider>
+      </ng-container>
+    </div>
+  </ng-container>
+
+  <button (click)="addSaB()" class="add" mat-raised-button color="primary" type="button">
+    Добавить
+  </button>  
+
+    </mat-card-content>
+    <mat-card-actions>
+      <mat-dialog-actions align="end">
+        <button 
+          mat-button
+          type="submit"
+          id="submitDetails"
+          name="submitDetails"
+          color="primary"
+        >
+          Сохранить
+        </button>
+        <button mat-button mat-dialog-close  color="primary">Отмена</button>
+      </mat-dialog-actions>
+          
+  </mat-card-actions>
+</mat-card>
+    </form>
+  </mat-dialog-content>
+   
